@@ -10,7 +10,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-token ="EAAFaBYXNrs4BAN1PsZAGGSxIILSBarZBxTTJTZBU6OyPIRlZAeZBaoZAEvwbY8XoJ6ERzWRYWAxFrHayH2FiDYooVRoixxqKLVDQ0HN1rC9TN7ZBBLoWYD1nTvk3CdnRtMiDgFrRuRXLXQ5BBh7FweXpzokbOxkGPS2hku8ZCb9FA2ozbIW6ngZAr"
+let token ="EAAFaBYXNrs4BAN1PsZAGGSxIILSBarZBxTTJTZBU6OyPIRlZAeZBaoZAEvwbY8XoJ6ERzWRYWAxFrHayH2FiDYooVRoixxqKLVDQ0HN1rC9TN7ZBBLoWYD1nTvk3CdnRtMiDgFrRuRXLXQ5BBh7FweXpzokbOxkGPS2hku8ZCb9FA2ozbIW6ngZAr"
 //Routes
 
 app.get('/',(req,res) => {
@@ -27,7 +27,7 @@ app.get('/webhook/', (req,res)=>{
 
 app.post('/webhook/',(req,res)=>{
 
-    let messaging_events = req.body.entry[0].messaging_events;
+    let messaging_events = req.body.entry[0].messaging;
     for(let i =0;i<messaging_events.length;i++){
         let event = messaging_events[i];
         let sender = event.sender.id;
@@ -43,10 +43,10 @@ function sendText(sender, text){
     let messageData = {text: text}
     request({
         url:"https//graph.facebook.com/v4.0/me/messages",
-        qs: {access_token, token},
+        qs: {access_token: token},
         method: "POST",
         json: {
-            reciept: {id: sender},
+            recipient: {id: sender},
             message: messageData
         },
         function(error,response,body){
