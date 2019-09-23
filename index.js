@@ -25,5 +25,5 @@ app.get('/webhook/', (req,res)=>{
 })
 
 app.listen(app.get('port'),()=>{
-    Console.log("Server is running");
+    console.log("Server is running");
 });
